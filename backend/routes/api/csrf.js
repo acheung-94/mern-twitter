@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   })
 });
 
-if ( isProduction ) {
+if ( !isProduction ) {
     router.get('/restore', (req,res,next)=> {
         res.status(200).json({
             'CSRF-Token' : req.csrfToken()
