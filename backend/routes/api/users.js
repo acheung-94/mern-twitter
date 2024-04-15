@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose');
 const User = mongoose.model('User')
-
+const passport = require('passport')
 router.get('/', (req, res, next) => {
   res.json({
     message: 'GET /api/users'
@@ -50,6 +50,20 @@ router.post('/register', async(req, res, next) => {
       }
     })
   })
+})
+
+router.post( '/login', async (req, res, next) => {
+  passport.authenticate('local', async (err, user) => { // the 'done' callback?
+    if (err) return next(err)
+    if (!user) {
+      const err = new Error('Invalid Credentials');
+      err.statusCode = 404;
+      err.errors = { email: 'Invalid Credentials'}
+      return next(err)
+    } 
+    //if user find is successful
+    return res.json({ user })
+  })(req, res, next)
 })
 
 module.exports = router;

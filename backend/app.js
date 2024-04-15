@@ -1,11 +1,12 @@
 require('./models/User')
+require('./config/passport')
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const debug = require('debug');
 const cors = require('cors');
 const { isProduction } = require('./config/keys');
-
+const passport = require('passport')
 const csurf = require('csurf')
 
 const csrfRouter = require('./routes/api/csrf')
@@ -29,6 +30,7 @@ app.use(
 if (!isProduction) {
     app.use(cors())
 }
+app.use(passport.initialize());
 
 app.use('/api/users', usersRouter);
 app.use('/api/tweets', tweetsRouter)
