@@ -47,7 +47,6 @@ router.post('/register', validateRegisterInput, async(req, res, next) => {
       try{
         newUser.hashedPassword = hashedPassword;
         const user = await newUser.save()
-        
         return res.json(await loginUser(user)) // return a signed in user.
       }
       catch(err){

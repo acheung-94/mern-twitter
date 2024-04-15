@@ -11,8 +11,10 @@ router.get('/', function(req, res, next) {
 
 if ( !isProduction ) {
     router.get('/restore', (req,res,next)=> {
+      const csrfToken = req.csrfToken();
+      res.cookie("CSRF-TOKEN", csrfToken);
         res.status(200).json({
-            'CSRF-Token' : req.csrfToken()
+            'CSRF-Token' : csrfToken
         })
     })
 
