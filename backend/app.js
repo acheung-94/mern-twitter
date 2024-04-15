@@ -1,5 +1,7 @@
 require('./models/User')
 require('./config/passport')
+require('./models/Tweet')
+
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
